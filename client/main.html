@@ -3,17 +3,39 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
+  <h1>Image Upload!</h1>
   {{>uploadForm}}
+  <br />
+  <br />
+
+  {{>showImages}}
 
 </body>
 
+<template name="showImages">
+  <table border="1" style="border-collapse: collapse;">
+    <tr>
+      <th>file name</th>
+      <th>size</th>
+      <th>image</th>
+    </tr>
+  {{#each file in imageFiles}}
+    <tr>
+      <td>{{ file.name }}</td>
+      <td>{{ file.size }}</td>
+      <td><img src="{{ getImageUrl(file._id) }}" alt="{{ file.name }}" /></td>
+    </tr>
+  {{/each}}
+  </table>
+</template>
+
 <template name="uploadForm">
-  {{#with currentUpload}}
-    Uploading <b>{{file.name}}</b>:
-    <span id="progress">{{progress.get}}%</span>
-  {{else}}
-    <input id="fileInput" type="file" />
-  {{/with}}
+  <form>
+    {{#with currentUpload}}
+      Uploading <b>{{file.name}}</b>:
+      <span id="progress">{{progress.get}}%</span>
+    {{else}}
+      <input id="fileInput" type="file" />
+    {{/with}}
+  </form>
 </template>

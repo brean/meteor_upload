@@ -3,6 +3,9 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 const Images = new FilesCollection({
   collectionName: 'Images',
+  storagePath: () => {
+      return `${process.env.PWD}/uploads`;
+  },
   allowClientCode: false, // Disallow remove files from Client
   onBeforeUpload(file) {
     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
@@ -21,6 +24,17 @@ if (Meteor.isServer) {
   Meteor.publish('files.images.all', function () {
     return Images.find().cursor;
   });
+  Meteor.methods({
+    getImageUrl (_id) {
+
+      let img = Images.findOne({_id: _id});
+      if (!img) {
+        return;
+      }
+      return img.link();
+    }
+  });
+
 }
 
 export {Images};
