@@ -22,19 +22,8 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.publish('files.images.all', function () {
-    return Images.find().cursor;
+    return Images.collection.find({});
   });
-  Meteor.methods({
-    getImageUrl (_id) {
-
-      let img = Images.findOne({_id: _id});
-      if (!img) {
-        return;
-      }
-      return img.link();
-    }
-  });
-
 }
 
 export {Images};

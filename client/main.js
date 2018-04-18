@@ -22,21 +22,8 @@ Template.uploadForm.helpers({
 
 Template.showImages.helpers({
   imageFiles() {
-    let images =  Images.find({});
-    var imageUrls = Template.instance().imageUrls;
-    images.forEach(function (img) {
-      Meteor.call('getImageUrl', img._id, function(error, re) {
-        console.log(re);
-        let imgData = imageUrls.get()
-        imgData[img._id] = re;
-        imageUrls.set(imgData);
-      });
-    });
-    return images;
+    return Images.find({});
   },
-  getImageUrl(_id) {
-    return Template.instance().imageUrls.get()[_id];
-  }
 });
 
 Template.uploadForm.events({

@@ -23,7 +23,7 @@
     <tr>
       <td>{{ file.name }}</td>
       <td>{{ file.size }}</td>
-      <td><img src="{{ getImageUrl(file._id) }}" alt="{{ file.name }}" /></td>
+      <td><img src="{{ fileURL file }}" alt="{{ file.name }}" /></td>
     </tr>
   {{/each}}
   </table>
